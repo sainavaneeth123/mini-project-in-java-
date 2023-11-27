@@ -1,0 +1,91 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ToDoListApp {
+
+    // The list to store tasks
+    private static ArrayList<String> toDoList = new ArrayList<>();
+
+    // Method to add a task to the to-do list
+    private static void addTask(String task) {
+        toDoList.add(task);
+        System.out.println("Task added: " + task);
+    }
+
+    // Method to delete a task from the to-do list
+    private static void deleteTask(int index) {
+        if (index >= 0 && index < toDoList.size()) {
+            String deletedTask = toDoList.remove(index);
+            System.out.println("Task deleted: " + deletedTask);
+        } else {
+            System.out.println("Invalid index. No task deleted.");
+        }
+    }
+
+    // Method to display the list of tasks
+    private static void displayTasks() {
+        if (toDoList.isEmpty()) {
+            System.out.println("The to-do list is empty.");
+        } else {
+            System.out.println("To-Do List:");
+            for (int i = 0; i < toDoList.size(); i++) {
+                System.out.println((i + 1) + ". " + toDoList.get(i));
+            }
+        }
+    }
+
+    // Method to mark a task as complete
+    private static void markTaskAsComplete(int index) {
+        if (index >= 0 && index < toDoList.size()) {
+            String completedTask = toDoList.get(index);
+            System.out.println("Task marked as complete: " + completedTask);
+            // You can add additional logic here to handle completed tasks if needed.
+        } else {
+            System.out.println("Invalid index. No task marked as complete.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nTo-Do List Application");
+            System.out.println("1. Add a task");
+            System.out.println("2. Delete a task");
+            System.out.println("3. Display tasks");
+            System.out.println("4. Mark a task as complete");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter your choice (1-5): ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the task to add: ");
+                    String newTask = scanner.nextLine();
+                    addTask(newTask);
+                    break;
+                case 2:
+                    System.out.print("Enter the index of the task to delete: ");
+                    int deleteIndex = scanner.nextInt();
+                    deleteTask(deleteIndex - 1); // Adjust index since displayed list starts from 1
+                    break;
+                case 3:
+                    displayTasks();
+                    break;
+                case 4:
+                    System.out.print("Enter the index of the task to mark as complete: ");
+                    int completeIndex = scanner.nextInt();
+                    markTaskAsComplete(completeIndex - 1); // Adjust index since displayed list starts from 1
+                    break;
+                case 5:
+                    System.out.println("Exiting the application. Goodbye!");
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 5.");
+            }
+        }
+    }
+}
